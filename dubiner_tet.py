@@ -25,7 +25,9 @@ import numpy as np
 # --------------------------------------------------------------------------
 # Jacobi machinery (ported verbatim from Functions.cpp).
 # --------------------------------------------------------------------------
-def _singularity_free_factors(m: int, a: int, b: int) -> tuple[float, float, float, float, float]:
+def _singularity_free_factors(
+    m: int, a: int, b: int
+) -> tuple[float, float, float, float, float]:
     """SingularityFreeJacobiPFactors -> (c1, c2, c3, c4, c5)."""
     c0 = 2.0 * m + a + b
     c1 = c0 - 1.0
@@ -56,7 +58,9 @@ def _sfjp_value(n: int, a: int, b: int, x: float, y: float) -> float:
     return pm
 
 
-def _sfjp_and_derivatives(n: int, a: int, b: int, x: float, y: float) -> tuple[float, float, float]:
+def _sfjp_and_derivatives(
+    n: int, a: int, b: int, x: float, y: float
+) -> tuple[float, float, float]:
     """SingularityFreeJacobiPAndDerivatives -> (P, dP/dx, dP/dy)."""
     if n == 0:
         return 1.0, 0.0, 0.0
@@ -72,7 +76,9 @@ def _sfjp_and_derivatives(n: int, a: int, b: int, x: float, y: float) -> tuple[f
         ddy_pm2, ddy_pm1 = ddy_pm1, ddy_pm
         c1, c2, c3, c4, c5 = _singularity_free_factors(m, a, b)
         pm = (c1 * (c2 * y + c3 * x) * pm1 - c4 * y * y * pm2) / c5
-        ddx_pm = (c1 * (c3 * pm1 + (c2 * y + c3 * x) * ddx_pm1) - c4 * y * y * ddx_pm2) / c5
+        ddx_pm = (
+            c1 * (c3 * pm1 + (c2 * y + c3 * x) * ddx_pm1) - c4 * y * y * ddx_pm2
+        ) / c5
         ddy_pm = (
             c1 * (c2 * pm1 + (c2 * y + c3 * x) * ddy_pm1)
             - c4 * (2.0 * y * pm2 + y * y * ddy_pm2)
@@ -83,7 +89,9 @@ def _sfjp_and_derivatives(n: int, a: int, b: int, x: float, y: float) -> tuple[f
 # --------------------------------------------------------------------------
 # Tetrahedral Dubiner basis + gradient (ported from Functions.cpp).
 # --------------------------------------------------------------------------
-def _tetra_dubiner_p(ijk: tuple[int, int, int], xez: tuple[float, float, float]) -> float:
+def _tetra_dubiner_p(
+    ijk: tuple[int, int, int], xez: tuple[float, float, float]
+) -> float:
     i, j, k = ijk
     xi, eta, zeta = xez
     r_num = 2.0 * xi - 1.0 + eta + zeta

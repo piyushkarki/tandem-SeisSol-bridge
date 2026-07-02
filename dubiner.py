@@ -6,7 +6,7 @@ polynomials after the Duffy transform (xi,eta) -> (a,b).
 
 This module provides:
   - dubiner_vandermonde(points, degree): (n_points, n_modes) basis matrix
-  - load_seissol_stroud_points(order): SeisSol's 25 Stroud face quad pts
+  - load_seissol_stroud_points(order): SeisSol's Stroud face quad pts (vendored)
   - build_projection_matrix(deg, source_pts, target_pts): target = P @ source
   - vtk_equidistant_triangle(degree): VTK Lagrange triangle node coords
 """
@@ -94,7 +94,7 @@ def dubiner_vandermonde(points: np.ndarray, degree: int) -> np.ndarray:
             Pi = _jacobi_eval(0.0, 0.0, i, a)
             Pj = _jacobi_eval(2.0 * i + 1.0, 0.0, j, b)
             # (1 - b)/2 = 1 - eta  so (1-eta)^i  = ((1-b)/2)^i
-            phi = Pi * Pj * (one_minus_eta ** i)
+            phi = Pi * Pj * (one_minus_eta**i)
             phi *= _dubiner_normalization(i, j)
             V[:, col] = phi
             col += 1
@@ -128,7 +128,7 @@ def _vtk_tri_recurse(p: int, v: np.ndarray, out: list[np.ndarray]) -> None:
     if p == 1:
         return
     # edges 0->1, 1->2, 2->0
-    for (a, b) in [(0, 1), (1, 2), (2, 0)]:
+    for a, b in [(0, 1), (1, 2), (2, 0)]:
         for k in range(1, p):
             t = k / p
             out.append((1.0 - t) * v[a] + t * v[b])
@@ -163,23 +163,26 @@ def build_projection_matrix(
     return V_t @ np.linalg.inv(V_s)
 
 
-def load_seissol_stroud_points(order: int, repo_root: str | Path) -> np.ndarray:
-    """Read `quadpoints` (25 x 2) from codegen/matrices/dr_stroud_matrices_<order>.json.
+_STROUD_DATA_PATH = Path(__file__).resolve().parent / "data" / "dr_stroud_points.json"
 
-    `order` is SeisSol's ConvergenceOrder (= polynomial degree + 1).
-    The points are in (chi, tau) on the unit right triangle = (xi, eta).
+
+def load_seissol_stroud_points(order: int) -> np.ndarray:
+    """Return SeisSol's (chi, tau) Stroud face quadrature points for `order`.
+
+    `order` is SeisSol's ConvergenceOrder (= polynomial degree + 1). The
+    points are in (chi, tau) on the unit right triangle = (xi, eta).
+
+    Vendored from `codegen/matrices/dr_stroud_matrices_<order>.json`'s
+    `quadpoints` entry (extracted once; see `data/dr_stroud_points.json`),
+    so this has no dependency on a SeisSol repo checkout at runtime.
+    Available for orders 2-8 (no source data exists for higher orders).
     """
-    repo_root = Path(repo_root)
-    path = repo_root / "codegen" / "matrices" / f"dr_stroud_matrices_{order}.json"
-    with path.open() as f:
-        entries = json.load(f)
-    for entry in entries:
-        if entry.get("name") != "quadpoints":
-            continue
-        rows = int(entry["rows"])
-        cols = int(entry["columns"])
-        out = np.zeros((rows, cols), dtype=float)
-        for r, c, v in entry["entries"]:
-            out[int(r) - 1, int(c) - 1] = float(v)
-        return out
-    raise RuntimeError(f"quadpoints not found in {path}")
+    with _STROUD_DATA_PATH.open() as f:
+        table = json.load(f)
+    key = str(order)
+    if key not in table:
+        raise ValueError(
+            f"no vendored Stroud points for order {order}; available orders: "
+            f"{sorted(int(k) for k in table)}"
+        )
+    return np.array(table[key], dtype=float)
