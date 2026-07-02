@@ -1,0 +1,15 @@
+{
+    "vectorsize_bytes": 32,
+    "real_bytes": 8,
+    "vec_width": 4,
+    "note": "pad = ceil(n_quad / vec_width) * vec_width, matching SeisSol NumPaddedPoints (src/DynamicRupture/Misc.h) for this build (src/Alignment.h: Alignment=64, Vectorsize=32, F64). Only valid for checkpoints produced by a SeisSol build with the same Vectorsize/precision.",
+    "pad_by_order": {
+        "2": 12,
+        "3": 16,
+        "4": 28,
+        "5": 36,
+        "6": 52,
+        "7": 64,
+        "8": 84
+    }
+}
