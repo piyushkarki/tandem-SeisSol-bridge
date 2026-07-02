@@ -18,7 +18,7 @@ from pathlib import Path
 import meshio
 import numpy as np
 
-from .fault_reader import _resolve_vtu_pieces
+from .tandem_fault_reader import _resolve_vtu_pieces
 
 DISP_NAMES = ("u0", "u1", "u2")
 
