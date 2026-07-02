@@ -8,9 +8,9 @@ offsets. Those live in this file's CLI (main, below) and in patcher.py (the
 HDF5 writer). The class itself can be applied to any simulator pair that
 shares the same polynomial order and fault geometry.
 
-    from tandem_bridge.dubiner import vtk_equidistant_triangle
-    from tandem_bridge.rotation import build_per_face_transforms
-    from tandem_bridge.fault_bridge import TandemBridge, TandemBridgeConfig
+    from tandem_to_seissol.dubiner import vtk_equidistant_triangle
+    from tandem_to_seissol.rotation import build_per_face_transforms
+    from tandem_to_seissol.fault_bridge import TandemBridge, TandemBridgeConfig
 
     vtk_pts    = vtk_equidistant_triangle(degree)   # source nodes from VTU
     target_pts = <load your quadrature points>       # any (n_q, 2) on the triangle
@@ -29,7 +29,7 @@ checkpoint, patching `/checkpoint/dynrup`. For the domain (volume) pipeline,
 see domain_bridge.py. To run both together against one output file, see the
 top-level bridge.py orchestrator.
 
-    python -m tandem_bridge.fault_bridge \
+    python -m tandem_to_seissol.fault_bridge \
         --vtu        /path/to/fault_full_7.pvtu \
         --mesh       /path/to/seissol_mesh.puml.h5 \
         --checkpoint /path/to/bp7-checkpoint-0.h5 \
@@ -366,7 +366,7 @@ def bridge_fault(
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(prog="tandem_bridge.fault_bridge", description=__doc__)
+    p = argparse.ArgumentParser(prog="tandem_to_seissol.fault_bridge", description=__doc__)
     p.add_argument("--vtu", required=True)
     p.add_argument("--mesh", required=True)
     p.add_argument("--checkpoint", required=True)

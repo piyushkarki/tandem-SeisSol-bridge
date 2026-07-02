@@ -7,7 +7,7 @@ and the displacement field as point data `u0, u1, u2` (global Cartesian).
 Unlike the fault output, the domain output carries only *displacement*; there
 is no velocity and no stress. The volume bridge derives stress from the
 displacement gradient (Hooke's law) and -- for a quasi-dynamic -> dynamic
-handoff -- takes the bulk velocity to be zero. See `volume_bridge.py`.
+handoff -- takes the bulk velocity to be zero. See `domain_bridge.py`.
 """
 
 from __future__ import annotations

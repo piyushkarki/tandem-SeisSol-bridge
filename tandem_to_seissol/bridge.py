@@ -7,7 +7,7 @@ missing, that half is skipped with a WARNING (not silently, and not a hard
 failure, since a fault-only or domain-only restart is a legitimate use case).
 At least one of the two must be given.
 
-    python -m tandem_bridge.bridge \
+    python -m tandem_to_seissol.bridge \
         --vtu        /path/to/fault_full_7.pvtu \
         --domain-vtu /path/to/domain_7.pvtu \
         --mesh       /path/to/seissol_mesh.puml.h5 \
@@ -31,7 +31,7 @@ from .fault_bridge import bridge_fault, parse_vec3
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(prog="tandem_bridge.bridge", description=__doc__)
+    p = argparse.ArgumentParser(prog="tandem_to_seissol.bridge", description=__doc__)
     p.add_argument("--mesh", required=True)
     p.add_argument("--checkpoint", required=True)
     p.add_argument("--output", required=True)

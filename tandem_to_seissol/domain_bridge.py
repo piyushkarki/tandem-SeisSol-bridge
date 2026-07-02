@@ -250,7 +250,7 @@ def bridge_domain(
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(prog="tandem_bridge.domain_bridge", description=__doc__)
+    p = argparse.ArgumentParser(prog="tandem_to_seissol.domain_bridge", description=__doc__)
     p.add_argument("--domain-vtu", required=True, help="tandem domain .pvtu/.vtu")
     p.add_argument("--mesh", required=True, help="SeisSol PUML .h5 mesh")
     p.add_argument("--checkpoint", required=True, help="source SeisSol checkpoint .h5")
