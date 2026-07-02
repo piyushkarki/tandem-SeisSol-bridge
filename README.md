@@ -36,3 +36,35 @@ Currently, there are two ideas to couple the two software:
 
 2. Use a different mesh: After the snapshot from tandem is obtained, use EASI/ASAGI to interpolate values from one mesh to another. This will require adding new API's with ASAGI/EASI in SeisSol.
 
+
+
+## How to use this repository
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/piyushkarki/tandem-SeisSol-bridge.git
+```
+
+### 2. Install the project dependencies from the toml file
+
+```bash
+pip install -e .
+```
+
+### 3. Run an example conversion from tandem to SeisSol checkpoint
+
+```bash
+python -m tandem_to_seissol.bridge --vtu tandem_to_seissol/example/fault_7.pvtu \
+                                  --domain-vtu tandem_to_seissol/example/domain_7.pvtu \   
+                                  --mesh       tandem_to_seissol/example/seissol_mesh.h5 \ 
+                                  --checkpoint tandem_to_seissol/example/seissol_checkpoint.h5 \   
+                                  --output     restart-from-tandem.h5 \
+                                  --order 4 --ref-normal 0,-1,0 \
+                                  --up 0,0,1 \
+                                  --coord-scale 1000 \ 
+                                  --stress-scale 1e6 \ 
+                                  --lambda 3.2038e10 \
+                                  --mu 3.2038e10 \
+                                  --convert-state
+```
