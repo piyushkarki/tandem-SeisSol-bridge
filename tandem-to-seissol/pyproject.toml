@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tandem-bridge"
+version = "0.1.0"
+description = "Convert tandem quasi-dynamic fault/domain VTU output into a patched SeisSol HDF5 checkpoint."
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "h5py",
+    "meshio",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib"]
+
+[project.scripts]
+tandem-bridge = "tandem-to-seissol.bridge:main"
+tandem-bridge-volume = "tandem-to-seissol.volume_bridge:main"
+
+[tool.setuptools]
+packages = ["tandem-to-seissol"]
+package-dir = { "tandem-to-seissol" = "." }
+
+[tool.setuptools.package-data]
+tandem-to-seissol = ["data/*.json"]
