@@ -1,4 +1,4 @@
-<img src="logo/logo-sans-darkred-border.svg" height="100" width="600" alt="Logo One"> <img src="logo/tandem_logo_final.png" height="100" width=500 alt="Logo Two">
+<img src="logo/logo-sans-darkred-border.svg" height="100" width="500" alt="Logo One"> <img src="logo/tandem_logo_final.png" height="100" width=500 alt="Logo Two">
 
 This repository is an attempt to find common links between the long term seismic cycle simulation software [Tandem](https://github.com/TEAR-ERC/tandem/) and the dynamic rupture wave simulation software [SeisSol](https://github.com/SeisSol/SeisSol) and study them to try and couple the software for a fully dynamic simulation.
 
