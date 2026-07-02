@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VTKFile type="PUnstructuredGrid" version="1.0" header_type="UInt64" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+    <PUnstructuredGrid GhostLevel="0">
+        <PPoints>
+            <PDataArray type="Float64" Name="Points" NumberOfComponents="3"/>
+        </PPoints>
+        <PCells>
+            <PDataArray type="Int32" Name="connectivity" NumberOfComponents="1"/>
+            <PDataArray type="Int32" Name="offsets" NumberOfComponents="1"/>
+            <PDataArray type="UInt8" Name="types" NumberOfComponents="1"/>
+        </PCells>
+        <PCellData>
+            <PDataArray type="Int32" Name="partition" NumberOfComponents="1"/>
+        </PCellData>
+        <PPointData>
+            <PDataArray type="Float64" Name="state" NumberOfComponents="1"/>
+            <PDataArray type="Float64" Name="slip0" NumberOfComponents="1"/>
+            <PDataArray type="Float64" Name="slip1" NumberOfComponents="1"/>
+            <PDataArray type="Float64" Name="traction0" NumberOfComponents="1"/>
+            <PDataArray type="Float64" Name="traction1" NumberOfComponents="1"/>
+            <PDataArray type="Float64" Name="slip-rate0" NumberOfComponents="1"/>
+            <PDataArray type="Float64" Name="slip-rate1" NumberOfComponents="1"/>
+            <PDataArray type="Float64" Name="normal-stress" NumberOfComponents="1"/>
+        </PPointData>
+        <PFieldData>
+            <PDataArray type="Float64" Name="time" NumberOfComponents="1"/>
+        </PFieldData>
+        <Piece Source="fault_7_0.vtu"/>
+    </PUnstructuredGrid>
+</VTKFile>
